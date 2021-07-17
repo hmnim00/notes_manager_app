@@ -1,0 +1,35 @@
+<div class="col-sm-12 py-2 px-3 bg-primary text-white rounded d-flex align-items-center">
+  <button class="btn btn-link" (click)="visitDashboard()">
+    <span class="iconify" data-icon="bi:arrow-left-circle-fill" data-inline="false"
+      style="color: #fff; height: 1.7rem; width: auto; margin-top: -9px;"></span>
+  </button>
+  <h3>Dashboard</h3>
+</div>
+
+<div class="col-sm-12 bg-primary text-white py-2 px-3 mt-4 rounded d-flex align-items-center">
+  <i class="fas fa-clipboard mr-2" style="margin-top: -7px;"></i>
+  <h5>Boards</h5>
+</div>
+
+<table class="table mt-4">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Owner</th>
+      <th scope="col" class="text-center">Notes</th>
+      <th scope="col" class="text-center">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Web developement</td>
+      <td>Notes about web developement</td>
+      <td>hmnim</td>
+      <td class="text-center">4</td>
+      <td class="d-flex align-items-center justify-content-center">
+        <button class="btn btn-danger btn-sm"><i class="fas fa-trash" (click)="deleteBoard()"></i></button>
+      </td>
+    </tr>
+  </tbody>
+</table>

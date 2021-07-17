@@ -1,0 +1,45 @@
+<div class="col-sm-12 py-2 px-3 bg-primary text-white rounded">
+  <h3>Dashboard</h3>
+</div>
+
+<div class="card-deck mt-5">
+  <div class="card">
+    <div class="card-header bg-primary text-white d-flex align-items-center">
+      <i class="fas fa-user-friends mr-2" style="margin-top: -7px;"></i>
+      <h5>Users</h5>
+    </div>
+    <div class="card-body">
+      <div class="d-flex justify-content-between">
+        <p class="card-text">Total</p>
+        <p class="card-text">2</p>
+      </div>
+      <button class="btn btn-primary" (click)="visitUsers()">Go to users</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header bg-primary text-white d-flex align-items-center">
+      <i class="fas fa-clipboard mr-2" style="margin-top: -7px;"></i>
+      <h5>Boards</h5>
+    </div>
+    <div class="card-body">
+      <div class="d-flex justify-content-between">
+        <p class="card-text">Total</p>
+        <p class="card-text">2</p>
+      </div>
+      <button class="btn btn-primary" (click)="visitBoards()">Go to boards</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header bg-primary text-white d-flex align-items-center">
+      <i class="fas fa-sticky-note mr-2" style="margin-top: -7px;"></i>
+      <h5>Notes</h5>
+    </div>
+    <div class="card-body">
+      <div class="d-flex justify-content-between">
+        <p class="card-text">Total</p>
+        <p class="card-text">2</p>
+      </div>
+      <button class="btn btn-primary" (click)="visitNotes()">Go to notes</button>
+    </div>
+  </div>
+</div>

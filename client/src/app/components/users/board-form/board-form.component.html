@@ -1,0 +1,34 @@
+<div class="col-md-7 mx-auto">
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <h5 class="text-center">New board</h5>
+    </div>
+    <div class="card-body">
+      <form>
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" name="title" [(ngModel)]="board.title" id="title" class="form-control">
+          <p class="text-danger">Error</p>
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea name="description" id="description" [(ngModel)]="board.description" rows="5"
+            class="form-control"></textarea>
+          <p class="text-danger">Error</p>
+        </div>
+        <div class="form-group">
+          <label for="colour">Colour</label>
+          <select name="colour" id="colour" [(ngModel)]="board.colour" class="form-control">
+            <option *ngFor="let colour of colours" [value]="colour.code">{{ colour.name }}</option>
+          </select>
+        </div>
+        <div class="form-group mt-4">
+          <button class="btn btn-primary">Save Board</button>
+        </div>
+      </form>
+    </div>
+    <div class="card-footer d-flex justify-content-end">
+      <button class="btn btn-danger" (click)="cancelSave()">Cancel</button>
+    </div>
+  </div>
+</div>

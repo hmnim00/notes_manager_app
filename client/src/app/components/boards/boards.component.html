@@ -1,0 +1,21 @@
+<div class="col-sm-12 bg-primary py-2 px-3 text-white rounded">
+  <h4>Boards</h4>
+</div>
+
+<div class="card-deck py-3">
+  <div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between bg-warning">
+      <small class="text-muted">HMNIM</small>
+      <small class="text-muted">created on 12/07/2021</small>
+    </div>
+    <div class="card-body">
+      <button class="btn btn-link" (click)="showBoard()">Web developement notes</button>
+      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
+        This content is a little bit longer.</p>
+    </div>
+    <div class="card-footer d-flex justify-content-end">
+      <button class="btn btn-warning btn-sm mr-2" (click)="editBoard()">Edit</button>
+      <button class="btn btn-danger btn-sm" (click)=deleteBoard()>Delete</button>
+    </div>
+  </div>
+</div>
