@@ -4,10 +4,10 @@ import { initialSetup } from "./InitialConfig";
 
 export const connection = createConnection({
   type: "mysql",
-  host: "localhost",
+  host: "******",
   port: 3306,
-  username: "root",
-  password: "",
+  username: "******",
+  password: "******",
   database: "manager_db",
   synchronize: true,
   logging: false,

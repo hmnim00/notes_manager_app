@@ -1,29 +1,45 @@
-<div class="col-md-7 mx-auto">
+<div class="col-md-7 mx-auto mb-5">
   <div class="card">
     <div class="card-header bg-primary text-white">
-      <h5 class="text-center">New board</h5>
+      <h5 class="text-center">{{ cardTitle }}</h5>
     </div>
     <div class="card-body">
-      <form>
+      <!-- alert -->
+      <div *ngIf="errorMessage != null" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <small>{{ errorMessage }}</small>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <form [formGroup]="boardForm" (ngSubmit)="saveBoard()">
         <div class="form-group">
           <label for="title">Title</label>
-          <input type="text" name="title" [(ngModel)]="board.title" id="title" class="form-control">
-          <p class="text-danger">Error</p>
+
+          <input type="text" name="title" formControlName="title" id="title"
+            class="form-control ng-untouched ng-pristine ng-valid" required>
+          <small class="text-danger" *ngIf="checkField('title')">{{ getErrorMessage('title') }}</small>
+
         </div>
         <div class="form-group">
           <label for="description">Description</label>
-          <textarea name="description" id="description" [(ngModel)]="board.description" rows="5"
-            class="form-control"></textarea>
-          <p class="text-danger">Error</p>
+
+          <textarea name="description" id="description" formControlName="description" rows="5"
+            class="form-control ng-untouched ng-pristine ng-valid" required></textarea>
+          <small class="text-danger" *ngIf="checkField('description')">{{ getErrorMessage('description') }}</small>
+
         </div>
         <div class="form-group">
           <label for="colour">Colour</label>
-          <select name="colour" id="colour" [(ngModel)]="board.colour" class="form-control">
+
+          <select name="colour" id="colour" formControlName="colour" class="form-control" required>
             <option *ngFor="let colour of colours" [value]="colour.code">{{ colour.name }}</option>
           </select>
+          <small class="text-danger" *ngIf="checkField('colour')">{{ getErrorMessage('colour') }}</small>
+
         </div>
         <div class="form-group mt-4">
-          <button class="btn btn-primary">Save Board</button>
+          <button class="btn btn-primary" type="submit" [disabled]="boardForm.invalid">Save Board</button>
         </div>
       </form>
     </div>

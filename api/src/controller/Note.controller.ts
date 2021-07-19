@@ -1,6 +1,7 @@
 import { validate } from "class-validator";
-import { Request, Response } from "express";
+import { query, Request, Response } from "express";
 import { getRepository } from "typeorm";
+import { Board } from "../entity/Board";
 import { Note } from "../entity/Note";
 
 export class NoteController {
@@ -9,28 +10,38 @@ export class NoteController {
     res: Response
   ): Promise<Response> => {
     const query = getRepository(Note);
-    const { title, content, colour, boardId } = req.body;
+    const queryBoard = getRepository(Board);
+    const { title, content, colour } = req.body;
     const { userId } = res.locals.jwtPayload;
+    const { id } = req.params;
+    let board: Board;
 
-    const note = new Note();
-    note.title = title;
-    note.content = content;
-    note.colour = colour;
-    note.board = boardId;
-    note.user = userId;
-
-    // validate
-    const errors = await validate(note, {
-      validationError: { target: false, value: false },
-    });
-    if (errors.length > 0) return res.status(400).json(errors);
-
-    // save to db
+    // search board
     try {
-      await query.save(note);
-      return res.status(200).json({ message: "Note added to db", note });
+      board = await queryBoard.findOneOrFail(id);
+
+      const note = new Note();
+      note.title = title;
+      note.content = content;
+      note.colour = colour;
+      note.board = board;
+      note.user = userId;
+
+      // validate
+      const errors = await validate(note, {
+        validationError: { target: false, value: false },
+      });
+      if (errors.length > 0) return res.status(400).json(errors);
+
+      // save to db
+      try {
+        await query.save(note);
+        return res.status(200).json({ message: "Note added to db", note });
+      } catch (error) {
+        return res.status(400).json(error);
+      }
     } catch (error) {
-      return res.status(400).json(error);
+      return res.status(404).json({ message: "Board not found" });
     }
   };
 
@@ -79,7 +90,7 @@ export class NoteController {
     const query = getRepository(Note);
     // get results
     try {
-      const notes = await query.find();
+      const notes = await query.find({ relations: ["board", "user"] });
       return res.status(200).json(notes);
     } catch (error) {
       return res.status(400).json(error);
@@ -92,7 +103,7 @@ export class NoteController {
 
     // get result
     try {
-      const note = await query.findOneOrFail(id);
+      const note = await query.findOneOrFail(id, { relations: ["board"] });
       return res.status(200).json(note);
     } catch (error) {
       return res.status(404).json({ message: "Note not found" });
@@ -121,6 +132,51 @@ export class NoteController {
       }
     } catch (error) {
       return res.status(404).json({ message: "Note not found" });
+    }
+  };
+
+  static getMyNotes = async (
+    req: Request,
+    res: Response
+  ): Promise<Response> => {
+    const query = getRepository(Note);
+    const { userId } = res.locals.jwtPayload;
+
+    // get results
+    try {
+      const notes = await query.find({ where: { user: userId } });
+      return res.status(200).json(notes);
+    } catch (error) {
+      return res.status(404).json({ message: "User has no notes" });
+    }
+  };
+
+  static getNotesByBoard = async (
+    req: Request,
+    res: Response
+  ): Promise<Response> => {
+    const queryBoard = await getRepository(Board);
+    const queryNote = await getRepository(Note);
+    const { id } = req.params;
+    let board: Board;
+
+    // find board
+    try {
+      board = await queryBoard.findOneOrFail(id);
+    } catch (error) {
+      return res.status(404).json({ message: "Board not found" });
+    }
+
+    // get results
+    try {
+      const notes = await queryNote.find({
+        where: { board },
+        relations: ["user"],
+      });
+      console.log("Response");
+      return res.status(200).json(notes);
+    } catch (error) {
+      return res.status(400).json(error);
     }
   };
 }

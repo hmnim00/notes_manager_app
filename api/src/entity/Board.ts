@@ -26,7 +26,7 @@ export class Board {
   @IsNotEmpty()
   description: string;
 
-  @Column({ type: "varchar", default: "blue" })
+  @Column({ type: "varchar", default: "bg-light" })
   colour: string;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
@@ -45,6 +45,6 @@ export class Board {
   user: User;
 
   // notes
-  @OneToMany(() => Note, (note) => note.board)
+  @OneToMany(() => Note, (note) => note.board, { onDelete: "CASCADE" })
   notes: Note[];
 }

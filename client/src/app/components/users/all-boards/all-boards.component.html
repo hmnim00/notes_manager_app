@@ -1,0 +1,39 @@
+<button class="btn btn-primary mb-3" (click)="createBoard()">Add new board</button>
+
+<div class="col-sm-12 bg-primary py-2 px-3 text-white rounded">
+  <h4>Boards</h4>
+</div>
+
+<div class="card-columns my-4">
+
+  <ng-container *ngIf="boards.length > 0; else noBoards">
+
+    <div class="card" *ngFor="let board of boards">
+      <div class="card-header d-flex align-items-center justify-content-between {{board.colour}}">
+        <small>{{ board.user.username != 'admin' ? board.user.username : '' }}</small>
+        <small>{{ board.created | date: 'd LLL, YYYY' }}</small>
+      </div>
+      <div class="card-body">
+        <button class="btn btn-link btn-bg" (click)="showBoard(board.boardSlug)">{{ board.title }}</button>
+        <p class="card-text">{{ board.description }}</p>
+      </div>
+      <ng-container *ngIf="username == board?.user?.username">
+        <div class="card-footer d-flex justify-content-end ">
+          <ng-container *ngIf="board.id != 1">
+            <button class="btn btn-warning btn-sm mr-2" (click)="editBoard(board.id)">Edit</button>
+            <button class="btn btn-danger btn-sm" (click)=deleteBoard(board.id)>Delete</button>
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+
+  </ng-container>
+
+</div>
+
+<ng-template #noBoards>
+  <div class="col-sm-12 text-center">
+    <h4 class="text-muted my-3">You don't have any board</h4>
+    <h3 class="mt-5">Create a new board <a routerLink="/new-board" class="link">here</a>.</h3>
+  </div>
+</ng-template>

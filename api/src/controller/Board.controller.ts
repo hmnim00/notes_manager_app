@@ -86,7 +86,7 @@ export class BoardController {
     const query = getRepository(Board);
     // get results
     try {
-      const boards = await query.find({ relations: ["user", "notes"] });
+      const boards = await await query.find({ relations: ["user", "notes"] });
       return res.status(200).json(boards);
     } catch (error) {
       return res.status(400).json(error);
@@ -101,6 +101,25 @@ export class BoardController {
     try {
       const board = await query.findOneOrFail({
         where: { boardSlug: slug },
+        relations: ["notes", "user"],
+      });
+      return res.status(200).json(board);
+    } catch (error) {
+      console.log("board error: ", error);
+      return res.status(404).json({ message: "Board not found" });
+    }
+  };
+
+  static getBoardId = async (
+    req: Request,
+    res: Response
+  ): Promise<Response> => {
+    const query = getRepository(Board);
+    const { id } = req.params;
+
+    // get result
+    try {
+      const board = await query.findOneOrFail(id, {
         relations: ["notes", "user"],
       });
       return res.status(200).json(board);
@@ -134,6 +153,22 @@ export class BoardController {
       }
     } catch (error) {
       return res.status(404).json({ message: "Board not found" });
+    }
+  };
+
+  static getMyBoards = async (
+    req: Request,
+    res: Response
+  ): Promise<Response> => {
+    const query = getRepository(Board);
+    const { userId } = res.locals.jwtPayload;
+
+    // get results
+    try {
+      const boards = await query.find({ where: { user: userId } });
+      return res.status(200).json(boards);
+    } catch (error) {
+      return res.status(404).json({ message: "User has no boards" });
     }
   };
 }

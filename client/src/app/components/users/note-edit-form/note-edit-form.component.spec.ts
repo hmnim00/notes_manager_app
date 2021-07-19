@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdminSigninComponent } from './admin-signin.component';
+import { NoteEditFormComponent } from './note-edit-form.component';
 
-describe('AdminSigninComponent', () => {
-  let component: AdminSigninComponent;
-  let fixture: ComponentFixture<AdminSigninComponent>;
+describe('NoteEditFormComponent', () => {
+  let component: NoteEditFormComponent;
+  let fixture: ComponentFixture<NoteEditFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AdminSigninComponent ]
+      declarations: [ NoteEditFormComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AdminSigninComponent);
+    fixture = TestBed.createComponent(NoteEditFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

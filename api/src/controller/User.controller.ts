@@ -56,10 +56,12 @@ export class UserController {
       // verify if user exists
       user = await query.findOneOrFail({ where: { username } });
 
-      if (!user.matchPassword(password))
+      if (!user.matchPassword(password)) {
+        console.log("Username or password are invalid pt1");
         return res
           .status(404)
-          .json({ message: "User or password are invalid" });
+          .json({ message: "Username or password are invalid" });
+      }
 
       // add token
       const token = jwt.sign(
@@ -76,7 +78,10 @@ export class UserController {
         role: user.role,
       });
     } catch (error) {
-      return res.status(404).json({ message: "User not found" });
+      console.log("Username or password are invalid pt2");
+      return res
+        .status(404)
+        .json({ message: "Username or password are invalid" });
     }
   };
 

@@ -1,1 +1,62 @@
-<p>profile works!</p>
+<div class="col-sm-12 bg-primary py-2 px-3 rounded text-white">
+  <h3>{{ username }}´s profile</h3>
+</div>
+
+<!-- boards -->
+<div class="col-sm-12 bg-primary text-white d-flex align-items-center justify-content-center pt-1 mt-5 mb-2 rounded">
+  <h5>My boards</h5>
+</div>
+
+<div class="card-deck">
+  <ng-container *ngIf="boards.length > 0; else noBoards">
+    <div class="card">
+      <div class="card-header d-flex align-items-center justify-content-between bg-warning">
+        <small class="text-muted">HMNIM</small>
+        <small class="text-muted">created on 12/07/2021</small>
+      </div>
+      <div class="card-body">
+        <button class="btn btn-link" (click)="showBoard()">Web developement notes</button>
+        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
+          This content is a little bit longer.</p>
+      </div>
+      <div class="card-footer d-flex justify-content-end">
+        <button class="btn btn-warning btn-sm mr-2" (click)="editBoard()">Edit</button>
+        <button class="btn btn-danger btn-sm" (click)=deleteBoard()>Delete</button>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<!-- notes -->
+<ng-template *ngIf="notes.length > 0">
+  <div class="col-sm-12 bg-primary text-white d-flex align-items-center justify-content-center pt-1 mt-5 mb-2 rounded">
+    <h5>My notes</h5>
+  </div>
+
+  <div class="card-columns py-3">
+
+    <div class="card bg-primary text-white">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <h6 class="text-light">Username</h6>
+        <h6 class="text-light">12/07/2021</h6>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Card title that wraps to a new line</h5>
+        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
+          content.
+          This content is a little bit longer.</p>
+      </div>
+      <div class="card-footer d-flex align-items-center justify-content-end">
+        <button class="btn btn-warning btn-sm mr-2" (click)="editNote()">Edit</button>
+        <button class="btn btn-danger btn-sm" (click)="deleteNote()">Delete</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #noBoards>
+  <div class="col-sm-12 text-center">
+    <h4 class="text-muted my-3">You don't have any board</h4>
+    <h3 class="mt-5">Create a new board <a routerLink="/new-board" class="link">here</a>.</h3>
+  </div>
+</ng-template>

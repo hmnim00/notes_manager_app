@@ -1,0 +1,11 @@
+.top-admin-menu {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 2rem;
+  align-items: center;
+
+  .d-flex {
+    align-items: center;
+    justify-content: center;
+  }
+}

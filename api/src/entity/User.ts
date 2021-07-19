@@ -46,10 +46,10 @@ export class User {
   }
 
   // board
-  @OneToMany(() => Board, (board) => board.user)
+  @OneToMany(() => Board, (board) => board.user, { onDelete: "CASCADE" })
   boards: Board[];
 
   // notes
-  @OneToMany(() => Note, (note) => note.user)
+  @OneToMany(() => Note, (note) => note.user, { onDelete: "CASCADE" })
   notes: Note[];
 }

@@ -25,7 +25,7 @@ export class Note {
   @IsNotEmpty()
   content: string;
 
-  @Column({ type: "varchar", default: "blue" })
+  @Column({ type: "varchar", default: "bg-light" })
   colour: string;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
